@@ -42,6 +42,7 @@ func Generate(input http.FileSystem, opt Options) error {
 		return err
 	}
 
+	toc.Fallback = opt.Fallback
 	err = t.ExecuteTemplate(buf, "Trailer", toc)
 	if err != nil {
 		return err
@@ -58,6 +59,9 @@ type toc struct {
 
 	HasCompressedFile bool // There's at least one compressedFile.
 	HasFile           bool // There's at least one uncompressed file.
+
+	// Fallback file that is served if no other is found
+	Fallback string
 }
 
 // fileInfo is a definition of a file.
@@ -288,7 +292,11 @@ func (fs vfsgen۰FS) Open(path string) (http.File, error) {
 	path = pathpkg.Clean("/" + path)
 	f, ok := fs[path]
 	if !ok {
-		return nil, &os.PathError{Op: "open", Path: path, Err: os.ErrNotExist}
+		{{ if .Fallback -}}
+		fallbackPath := pathpkg.Clean("/" + "{{.Fallback}}")
+		f = fs[fallbackPath]
+        {{- else -}}
+		return nil, &os.PathError{Op: "open", Path: path, Err: os.ErrNotExist}{{end}}
 	}
 
 	switch f := f.(type) {{"{"}}{{if .HasCompressedFile}}

@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/shurcooL/vfsgen"
+	"github.com/cwen0/vfsgen"
 	"golang.org/x/tools/godoc/vfs/httpfs"
 	"golang.org/x/tools/godoc/vfs/mapfs"
 )

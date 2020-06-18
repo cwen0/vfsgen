@@ -1,7 +1,7 @@
 vfsgen
 ======
 
-[![Build Status](https://travis-ci.org/shurcooL/vfsgen.svg?branch=master)](https://travis-ci.org/shurcooL/vfsgen) [![GoDoc](https://godoc.org/github.com/shurcooL/vfsgen?status.svg)](https://godoc.org/github.com/shurcooL/vfsgen)
+[![Build Status](https://travis-ci.org/cwen0/vfsgen.svg?branch=master)](https://travis-ci.org/cwen0/vfsgen) [![GoDoc](https://godoc.org/github.com/cwen0/vfsgen?status.svg)](https://godoc.org/github.com/cwen0/vfsgen)
 
 Package vfsgen takes an http.FileSystem (likely at `go generate` time) and
 generates Go code that statically implements the provided http.FileSystem.
@@ -20,7 +20,7 @@ Installation
 ------------
 
 ```bash
-go get -u github.com/shurcooL/vfsgen
+go get -u github.com/cwen0/vfsgen
 ```
 
 Usage
@@ -104,7 +104,7 @@ import (
 	"log"
 
 	"example.com/project/data"
-	"github.com/shurcooL/vfsgen"
+	"github.com/cwen0/vfsgen"
 )
 
 func main() {
@@ -128,7 +128,7 @@ Note that "dev" build tag is used to access the source filesystem, and the outpu
 Make sure it's installed and available in your PATH.
 
 ```bash
-go get -u github.com/shurcooL/vfsgen/cmd/vfsgendev
+go get -u github.com/cwen0/vfsgen/cmd/vfsgendev
 ```
 
 Then the "//go:generate go run -tags=dev assets_generate.go" directive can be replaced with:
@@ -141,7 +141,7 @@ vfsgendev accesses the source variable using "dev" build tag, and generates an o
 
 ### Additional Embedded Information
 
-All compressed files implement [`httpgzip.GzipByter` interface](https://godoc.org/github.com/shurcooL/httpgzip#GzipByter) for efficient direct access to the internal compressed bytes:
+All compressed files implement [`httpgzip.GzipByter` interface](https://godoc.org/github.com/cwen0/httpgzip#GzipByter) for efficient direct access to the internal compressed bytes:
 
 ```Go
 // GzipByter is implemented by compressed files for
@@ -152,7 +152,7 @@ type GzipByter interface {
 }
 ```
 
-Files that have been determined to not be worth gzip compressing (their compressed size is larger than original) implement [`httpgzip.NotWorthGzipCompressing` interface](https://godoc.org/github.com/shurcooL/httpgzip#NotWorthGzipCompressing):
+Files that have been determined to not be worth gzip compressing (their compressed size is larger than original) implement [`httpgzip.NotWorthGzipCompressing` interface](https://godoc.org/github.com/cwen0/httpgzip#NotWorthGzipCompressing):
 
 ```Go
 // NotWorthGzipCompressing is implemented by files that were determined
